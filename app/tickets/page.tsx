@@ -1,10 +1,18 @@
 import React from 'react';
+import TicketList from './ticketList';
 
 const Ticket = () => {
+
     return (
-       <main>
-        <h2>LATEST NEWS</h2>
-       </main>
+        <main>
+        <nav>
+            <div>
+            <h2>Tickets</h2>
+            <p><small>Currently open tickets.</small></p>
+            </div>
+        </nav>
+        <TicketList />
+        </main>
     );
 }
 
