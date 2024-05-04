@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 /* base styles */
+
+@layer base {
+  
 body {
   background: #ebf0fa;
   @apply text-gray-500 m-8;
@@ -136,4 +139,5 @@ form button {
   @apply 
     absolute bottom-0 right-0 
     rounded-tl-md;
+}
 }
