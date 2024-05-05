@@ -1,11 +1,27 @@
+import { notFound } from 'next/navigation';
 import React from 'react';
+
+const dynamicParams = false;
+
+async function generateStaticParams(params: any) {
+    const res = await fetch('http://localhost:4000/tickets');
+
+    const tickets = res.json();
+    return tickets.map((ticket: any) => {
+        id: ticket.id
+    })
+}
 
 async function getTicket(id: any) {
     const res = await fetch(`http://localhost:4000/tickets/${id}`, {
         next: {
-          revalidate: 60 // use 0 to opt out of using cache
+          revalidate: 0 // use 0 to opt out of using cache
         }
       })
+
+      if(!res.ok) {
+        notFound()
+      }
 
       return res.json()
 }
@@ -17,7 +33,6 @@ console.log(ticket)
         <main>
         <nav>
             <h2>Ticket Details</h2>
-            <h3>{}</h3>
         </nav>
         <div className="card">
             <h3>{ticket.title}</h3>
