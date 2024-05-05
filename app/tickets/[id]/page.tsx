@@ -6,13 +6,15 @@ const dynamicParams = false;
 async function generateStaticParams(params: any) {
     const res = await fetch('http://localhost:4000/tickets');
 
-    const tickets = res.json();
+    const tickets = await res.json();
     return tickets.map((ticket: any) => {
         id: ticket.id
     })
 }
 
 async function getTicket(id: any) {
+         // imitate delay
+    await new Promise(resolve => setTimeout(resolve, 3000))
     const res = await fetch(`http://localhost:4000/tickets/${id}`, {
         next: {
           revalidate: 0 // use 0 to opt out of using cache
@@ -26,9 +28,8 @@ async function getTicket(id: any) {
       return res.json()
 }
 
-export default async function TicketDetails({ params }) {
+export default async function TicketDetails({ params }: any) {
     const ticket = await getTicket(params.id);
-console.log(ticket)
     return (
         <main>
         <nav>
